@@ -98,7 +98,7 @@
 
         <%
             String errorMsg = (String) request.getAttribute("error");
-            Exception exception = (Exception) request.getAttribute("exception");
+            Exception exceptionn = (Exception) request.getAttribute("exception");
             
             if (errorMsg != null) {
         %>
