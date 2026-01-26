@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 26 ene 2026, 12:50:10 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="sede" name="com.gf.sede.entities.Registros" optimistic-lock="none" table="registros">
+        <id name="numRegistro" type="string">
+            <column length="50" name="num_registro"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="com.gf.sede.entities.Entidad" fetch="select" name="entidad">
+            <column name="id_entidad" not-null="true"/>
+        </many-to-one>
+        <property name="dniSolicitante" type="string">
+            <column length="10" name="dni_solicitante" not-null="true"/>
+        </property>
+        <property name="nombreSolicitante" type="string">
+            <column length="100" name="nombre_solicitante" not-null="true"/>
+        </property>
+        <property name="apellidosSolicitante" type="string">
+            <column length="150" name="apellidos_solicitante" not-null="true"/>
+        </property>
+        <property name="tramite" type="string">
+            <column length="200" name="tramite" not-null="true"/>
+        </property>
+        <property name="fechaRegistro" type="timestamp">
+            <column length="19" name="fecha_registro" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
