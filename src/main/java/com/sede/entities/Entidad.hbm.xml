@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Generated 26 ene 2026, 12:50:10 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class catalog="sede" name="com.gf.sede.entities.Entidad" optimistic-lock="none" table="entidad">
+    <class catalog="sede" name="com.sede.entities.Entidad" optimistic-lock="none" table="entidad">
         <id name="idEntidad" type="java.lang.Integer">
             <column name="id_entidad"/>
             <generator class="identity"/>
@@ -13,7 +13,7 @@
             <key>
                 <column name="id_entidad" not-null="true"/>
             </key>
-            <one-to-many class="com.gf.sede.entities.Registros"/>
+            <one-to-many class="com.sede.entities.Registros"/>
         </set>
     </class>
 </hibernate-mapping>

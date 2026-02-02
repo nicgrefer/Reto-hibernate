@@ -1,10 +1,11 @@
 package com.sede.dao;
 
-import com.sede.model.Registros;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.HibernateException;
 import org.hibernate.query.Query;
+
+import com.sede.entities.Registros;
 
 public class RegistrosDAO {
 
@@ -21,7 +22,7 @@ public class RegistrosDAO {
             transaction.commit();
             System.out.println("Registro guardado exitosamente: " + numRegistro);
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }

@@ -1,19 +1,16 @@
 package com.sede.servlet;
 
+import java.io.IOException;
+
 import com.sede.dao.EntidadDAO;
 import com.sede.dao.RegistrosDAO;
 import com.sede.ln.RegistrosLN;
-import com.sede.model.Entidad;
-import com.sede.model.Registros;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
-import java.io.IOException;
-import java.util.List;
 
 @WebServlet(name = "ServletRegistro", urlPatterns = {"/ServletRegistro", "/grabar", "/buscar"})
 public class ServletRegistro extends HttpServlet {
@@ -110,7 +107,7 @@ public class ServletRegistro extends HttpServlet {
                 return;
             }
 
-            Entidad entidad = entidadDAO.obtenerPorId(idEntidad);
+            com.sede.entities.Entidad entidad = entidadDAO.obtenerPorId(idEntidad);
             if (entidad == null) {
                 request.setAttribute("exito", false);
                 request.setAttribute("mensaje", "Entidad no encontrada");
@@ -118,18 +115,28 @@ public class ServletRegistro extends HttpServlet {
                 return;
             }
 
-            Registros registro = new Registros();
+            com.sede.entities.Registros registro = new com.sede.entities.Registros();
             registro.setDniSolicitante(dni.trim().toUpperCase());
             registro.setNombreSolicitante(nombre.trim());
             registro.setApellidosSolicitante(apellidos.trim());
             registro.setTramite(tramite.trim());
             registro.setEntidad(entidad);
 
-            String numRegistro = registrosLN.procesarRegistro(registro);
+            String numRegistro = registrosLN.generarNumeroRegistro();
+            registro.setNumRegistro(numRegistro);
 
-            request.setAttribute("exito", true);
-            request.setAttribute("numRegistro", numRegistro);
-            request.setAttribute("fechaRegistro", registro.getFechaRegistro());
+            // Guardar en la base de datos
+            String resultado = registrosLN.procesarRegistro(registro);
+
+            if (resultado != null) {
+                request.setAttribute("exito", true);
+                request.setAttribute("numRegistro", resultado);
+                request.setAttribute("fechaRegistro", registro.getFechaRegistro());
+            } else {
+                request.setAttribute("exito", false);
+                request.setAttribute("mensaje", "No se pudo guardar el registro en la base de datos");
+            }
+
             request.getRequestDispatcher("/Mensaje.jsp").forward(request, response);
 
         } catch (Exception e) {
@@ -156,7 +163,7 @@ public class ServletRegistro extends HttpServlet {
                 return;
             }
 
-            Registros registro = registrosDAO.buscarPorNumero(numRegistro.trim());
+            com.sede.entities.Registros registro = registrosDAO.buscarPorNumero(numRegistro.trim());
 
             if (registro != null) {
                 request.setAttribute("encontrado", true);

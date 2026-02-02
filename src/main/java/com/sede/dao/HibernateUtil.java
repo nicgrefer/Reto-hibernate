@@ -2,7 +2,6 @@ package com.sede.dao;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.HibernateException;
 
 public class HibernateUtil {
 
@@ -12,7 +11,7 @@ public class HibernateUtil {
         try {
             sessionFactory = new Configuration().configure().buildSessionFactory();
             System.out.println("SessionFactory creada exitosamente");
-        } catch (HibernateException ex) {
+        } catch (Exception ex) {
             System.err.println("Error al crear SessionFactory: " + ex.getMessage());
             ex.printStackTrace();
             throw new ExceptionInInitializerError(ex);
@@ -28,7 +27,7 @@ public class HibernateUtil {
             try {
                 sessionFactory.close();
                 System.out.println("SessionFactory cerrada correctamente");
-            } catch (HibernateException e) {
+            } catch (Exception e) {
                 System.err.println("Error al cerrar SessionFactory: " + e.getMessage());
                 e.printStackTrace();
             }

@@ -1,8 +1,8 @@
 package com.sede.ln;
 
 import com.sede.dao.RegistrosDAO;
-import com.sede.model.Entidad;
-import com.sede.model.Registros;
+import com.sede.entities.Entidad;
+import com.sede.entities.Registros;
 
 import java.util.regex.Pattern;
 

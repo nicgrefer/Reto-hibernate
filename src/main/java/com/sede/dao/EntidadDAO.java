@@ -1,13 +1,13 @@
 package com.sede.dao;
 
-import com.sede.model.Entidad;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-import org.hibernate.HibernateException;
-import org.hibernate.query.Query;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+import org.hibernate.query.Query;
+
+import com.sede.entities.Entidad;
 
 public class EntidadDAO {
 
@@ -25,7 +25,7 @@ public class EntidadDAO {
             transaction.commit();
             System.out.println("Se obtuvieron " + entidades.size() + " entidades");
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
@@ -53,7 +53,7 @@ public class EntidadDAO {
                 System.out.println("No se encontró entidad con ID: " + id);
             }
 
-        } catch (HibernateException e) {
+        } catch (Exception e) {
             if (transaction != null && transaction.isActive()) {
                 transaction.rollback();
             }
